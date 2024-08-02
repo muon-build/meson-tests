@@ -22,5 +22,20 @@ if meson.can_run_host_binaries()
     assert(res.stderr() == '')
 endif
 
+# testcase expect_error('''compiler.compiles keyword argument 'required' was of type str but should have been one of: bool, UserFeatureOption''')
+#   cc.compiles(valid, name: 'valid', required : 'not a bool')
+# endtestcase
+
+# testcase expect_error('''Could not compile invalid''')
+#   cc.compiles(invalid, name: 'invalid', required : true)
+# endtestcase
+
+# testcase expect_error('''Could not link invalid''')
+#   cc.links(invalid, name: 'invalid', required : true)
+# endtestcase
+
 if meson.can_run_host_binaries()
+    #   testcase expect_error('''Could not run invalid''')
+    #     cc.run(invalid, name: 'invalid', required : true)
+    #   endtestcase
 endif

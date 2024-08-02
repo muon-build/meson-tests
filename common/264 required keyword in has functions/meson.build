@@ -63,3 +63,19 @@ if not ['pgi', 'msvc', 'clang-cl', 'intel-cl'].contains(cc.get_id())
     cc.has_function_attribute(a, required: true)
     assert(not cc.has_function_attribute(a, required: opt))
 endif
+
+# testcase expect_error('''compiler.has_function keyword argument 'required' was of type str but should have been one of: bool, UserFeatureOption''')
+#   cc.has_function('printf', required : 'not a bool')
+# endtestcase
+
+# testcase expect_error('''C function 'asdfkawlegsdiovapfjhkr' not usable''')
+#   cc.has_function('asdfkawlegsdiovapfjhkr', required : true)
+# endtestcase
+
+# testcase expect_error('''C header 'asdfkawlegsdiovapfjhkr.h' not found''')
+#   cc.has_header('asdfkawlegsdiovapfjhkr.h', required : true)
+# endtestcase
+
+# testcase expect_error('''C symbol time_not_found not found in header time.h''')
+#   cc.has_header_symbol('time.h', 'time_not_found', required : true)
+# endtestcase

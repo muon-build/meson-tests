@@ -171,6 +171,13 @@ pkgg.generate(
 )
 
 # without a mainlib, name/description are mandatory
+# testcase expect_error('pkgconfig.generate: if a library is not passed as a positional argument, the \'name\' keyword argument is required.')
+#   pkgg.generate(description: 'empty data')
+# endtestcase
+
+# testcase expect_error('pkgconfig.generate: if a library is not passed as a positional argument, the \'description\' keyword argument is required.')
+#   pkgg.generate(name: 'foobar')
+# endtestcase
 
 # Make sure the -uninstalled.pc file contains both include directories.
 # See dependencies/test2.c that gets built against both simple7.pc and

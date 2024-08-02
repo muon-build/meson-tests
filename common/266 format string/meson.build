@@ -11,3 +11,10 @@ message('@0@'.format(env))
 
 # Should fail with f-string and message()
 error_msg = 'Value other than strings, integers, bools, options, dictionaries and lists thereof.'
+# testcase expect_error('message(): ' + error_msg)
+#   message(env)
+# endtestcase
+
+# testcase expect_error('f-string: ' + error_msg)
+#   message(f'@env@')
+# endtestcase

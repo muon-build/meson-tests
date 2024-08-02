@@ -25,5 +25,8 @@ Note that this error message can also be triggered by
 external dependencies being installed within your source
 tree - it's not recommended to do this.
 '''
+# testcase expect_error(errormsg)
+#   include_directories(meson.current_source_dir() / 'include')
+# endtestcase
 # Test for issue #12217
 include_directories(meson.current_source_dir() + 'xyz')

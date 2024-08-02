@@ -244,3 +244,7 @@ endif
 subdir('subdir')
 
 subproject('subbie')
+
+# testcase expect_error('File notfound does not exist.')
+#   fs.read('notfound')
+# endtestcase
