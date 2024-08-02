@@ -81,10 +81,11 @@ assert(
     'bool string conversion with args failed',
 )
 assert('@0@'.format(true) == 'true', 'bool string formatting failed')
-assert(
-    '@0@'.format(['one', 'two']) == '[\'one\', \'two\']',
-    'list string formatting failed',
-)
+# different from meson: format does not accept list arguments
+# assert(
+#     '@0@'.format(['one', 'two']) == '[\'one\', \'two\']',
+#     'list string formatting failed',
+# )
 
 assert(' '.join(['a', 'b', 'c']) == 'a b c', 'join() array broken')
 assert(''.join(['a', 'b', 'c']) == 'abc', 'empty join() broken')

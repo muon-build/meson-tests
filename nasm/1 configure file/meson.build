@@ -1,17 +1,18 @@
 project('nasm config file', 'c')
 
-if not host_machine.cpu_family().startswith('x86')
-    error('MESON_SKIP_TEST: nasm only supported for x86 and x86_64')
-endif
-
-if host_machine.system() != 'linux'
-    error('MESON_SKIP_TEST: this test asm is made for Linux')
-endif
-
-if host_machine.cpu_family() == 'x86'
+if host_machine.cpu_family() == 'x86' and host_machine.system() == 'windows'
+    asm_format = 'win32'
+elif (
+    host_machine.cpu_family() == 'x86_64'
+    and host_machine.system() == 'windows'
+)
+    asm_format = 'win64'
+elif host_machine.cpu_family() == 'x86' and host_machine.system() == 'linux'
     asm_format = 'elf32'
-else
+elif host_machine.cpu_family() == 'x86_64' and host_machine.system() == 'linux'
     asm_format = 'elf64'
+else
+    error('MESON_SKIP_TEST: skipping test on this platform')
 endif
 
 nasm = find_program('nasm', required: false)
@@ -56,7 +57,9 @@ test('test-nasm-configure-file', exe)
 
 exe2 = executable(
     'hello2',
-    objects: exe.extract_all_objects(),
+    # different than meson: objects in target sources are added to the target's
+    # objects, and not kept in its sources.
+    objects: exe.extract_all_objects(recursive: true),
     link_args: link_args,
 )
 

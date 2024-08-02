@@ -16,7 +16,8 @@ assert(
     'Default value getting is not working.',
 )
 assert(
-    conf.keys() == ['BE_TRUE', 'other', 'second', 'var'],
+    # different from meson: keys retain the order they are set
+    conf.keys() == ['var', 'other', 'second', 'BE_TRUE'],
     'Keys function is not working',
 )
 
@@ -169,15 +170,16 @@ cfile = configure_file(
     configuration: conf,
 )
 
+# different from meson: install_dir: false is unsupported
 # test install_dir : false (deprecated)
-cfile = configure_file(
-    input: 'config.h.in',
-    output: 'do_not_get_installed_please.h',
-    install_dir: false,
-    configuration: conf,
-)
+# cfile = configure_file(
+#     input: 'config.h.in',
+#     output: 'do_not_get_installed_please.h',
+#     install_dir: false,
+#     configuration: conf,
+# )
 
-# test install_dir with install: false
+# test intsall_dir with install: false
 cfile = configure_file(
     input: 'config.h.in',
     output: 'do_not_get_installed_in_install_dir.h',
@@ -259,13 +261,14 @@ configure_file(
     configuration: configuration_data(),
 )
 
+# different from meson: invalid @ substitutions are errors
 # test that passing an empty configuration_data() object to a file with
 # @foo@ substitutions does not print the warning.
-configure_file(
-    input: 'nosubst-nocopy2.txt.in',
-    output: 'nosubst-nocopy2.txt',
-    configuration: configuration_data(),
-)
+# configure_file(
+#     input: 'nosubst-nocopy2.txt.in',
+#     output: 'nosubst-nocopy2.txt',
+#     configuration: configuration_data(),
+# )
 
 # test that passing a configured file object to test() works, and that passing
 # an empty configuration_data() object to a file that leads to no substitutions

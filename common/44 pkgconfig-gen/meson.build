@@ -1,4 +1,9 @@
-project('pkgconfig-gen', 'c', meson_version: '>=0.60.0')
+project(
+    'pkgconfig-gen',
+    'c',
+    meson_version: '>=0.60.0',
+    default_options: ['default_library=shared'],
+)
 
 # Some CI runners does not have zlib, just skip them as we need some common
 # external dependency.
@@ -24,7 +29,12 @@ pkgg = import('pkgconfig')
 
 lib = shared_library('simple', 'simple.c')
 libver = '1.0'
-h = install_headers('simple.h')
+install_headers('simple.h')
+
+to_validate = []
+
+# generate for systems without a glib pc file
+pkgg.generate(name: 'glib-2.0', dataonly: true)
 
 pkgg.generate(
     libraries: [lib, '-lz'],
@@ -37,16 +47,7 @@ pkgg.generate(
     requires_private: ['gio-2.0', 'gobject-2.0'],
     libraries_private: [lib, '-lz'],
 )
-
-env = environment()
-env.prepend('PKG_CONFIG_PATH', meson.current_build_dir() / 'meson-private')
-
-test(
-    'pkgconfig-validation',
-    pkgconfig,
-    args: ['--validate', 'simple'],
-    env: env,
-)
+to_validate += 'simple'
 
 answerlib = shared_library('answer', 'answer.c')
 
@@ -56,6 +57,7 @@ pkgg.generate(
     description: 'An answer library.',
     extra_cflags: ['-DLIBFOO'],
 )
+to_validate += 'libanswer'
 
 # Test that name_prefix='' and name='libfoo' results in '-lfoo'
 lib2 = shared_library('libfoo', 'foo.c', link_with: answerlib, name_prefix: '', version: libver)
@@ -69,12 +71,14 @@ pkgg.generate(
     variables: ['foo=bar', 'datadir=${prefix}/data'],
     extra_cflags: ['-DLIBFOO'],
 )
+to_validate += 'libfoo'
 
 pkgg.generate(
     name: 'libhello',
     description: 'A minimalistic pkgconfig file.',
     version: libver,
 )
+to_validate += 'libhello'
 
 pkgg.generate(
     name: 'libhello_nolib',
@@ -92,6 +96,7 @@ pkgg.generate(
         'unescaped_var': 'hello world',
     },
 )
+to_validate += 'libhello_nolib'
 
 # Regression test for 2 cases:
 # - link_whole from InternalDependency used to be ignored, but we should still
@@ -104,6 +109,7 @@ stat1 = static_library('stat1', 'simple.c', link_with: simple1)
 dep = declare_dependency(link_whole: stat1, dependencies: cc.find_library('z'))
 simple2 = library('simple2', 'simple.c')
 pkgg.generate(simple2, libraries: dep)
+to_validate += 'simple2'
 
 # Regression test: as_system() does a deepcopy() of the InternalDependency object
 # which caused `-lsimple3` to be duplicated because generator used to compare
@@ -112,6 +118,7 @@ simple3 = shared_library('simple3', 'simple.c')
 dep1 = declare_dependency(link_with: simple3)
 dep2 = dep1.as_system()
 pkgg.generate(libraries: [dep1, dep2], name: 'simple3', description: 'desc')
+to_validate += 'simple3'
 
 # Regression test: stat2 is both link_with and link_whole, it should not appear
 # in generated pc file.
@@ -119,6 +126,7 @@ stat2 = static_library('stat2', 'simple.c', install: true)
 simple4 = library('simple4', 'simple.c', link_with: stat2)
 simple5 = library('simple5', 'simple5.c', link_with: simple4, link_whole: stat2)
 pkgg.generate(simple5)
+to_validate += 'simple5'
 
 # Test passing a linkable CustomTarget and CustomTargetIndex to generator.
 # Do this only with gcc/clang to not have to deal with other compiler command
@@ -131,7 +139,14 @@ if cc.get_id() in ['gcc', 'clang']
         command: [cc.cmd_array(), '@INPUT@', '-shared', '-o', '@OUTPUT@'],
     )
     pkgg.generate(libraries: ct, name: 'ct', description: 'custom target')
-    pkgg.generate(libraries: ct[0], name: 'ct0', description: 'custom target index')
+    to_validate += 'ct'
+
+    pkgg.generate(
+        libraries: ct[0],
+        name: 'ct0',
+        description: 'custom target index',
+    )
+    to_validate += 'ct0'
 endif
 
 # Regression test: A library linking to an uninstalled custom_target static
@@ -148,21 +163,52 @@ ct = custom_target(
 )
 simple6 = library('simple6', 'dependencies/dummy.c', link_with: ct)
 pkgg.generate(simple6)
+to_validate += 'simple6'
 
 # implicit variables
 pkgg.generate(
     name: 'libvartest',
     description: 'Check that implicit vars are created',
     version: libver,
-    variables: ['datadir=${prefix}/data', 'foo=${datadir}/foo', 'bar=${bindir}/bar'],
+    variables: [
+        'datadir=${prefix}/data',
+        'foo=${datadir}/foo',
+        'bar=${bindir}/bar',
+    ],
 )
+to_validate += 'libvartest'
+
 pkgg.generate(
     name: 'libvartest2',
     description: 'Check that libdir is not an implicit var',
     version: libver,
     variables: ['bar=${libdir}/bar'],
 )
+to_validate += 'libvartest2'
 
+cmp = find_program('diff')
+
+privder = '.muon'
+env = environment()
+env.prepend('PKG_CONFIG_PATH', meson.current_build_dir() / privder)
+
+foreach pc : to_validate
+    test(
+        'validate' + pc,
+        pkgconfig,
+        args: ['--validate', pc],
+        env: env,
+    )
+
+    test(
+        'diff ' + pc,
+        cmp,
+        args: [
+            files('expected' / pc + '.pc'),
+            meson.current_build_dir() / privder / pc + '.pc',
+        ],
+    )
+endforeach
 # Regression test: variables kwarg should listify single string value
 pkgg.generate(
     name: 'libvartest3',
