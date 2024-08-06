@@ -2,7 +2,12 @@ project(
     'persubproject options',
     'c',
     'cpp',
-    default_options: ['werror=true', 'warning_level=3', 'cpp_std=c++11'],
+    default_options: [
+        'default_library=both',
+        'werror=true',
+        'warning_level=3',
+        'cpp_std=c++11',
+    ],
 )
 
 assert(
