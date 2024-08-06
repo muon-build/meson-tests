@@ -75,15 +75,19 @@ foreach lang : ['c', 'cpp']
                 ) == expect_success,
             )
             if meson.can_run_host_binaries()
-                assert(
-                    (
-                        compiler.run(
-                            warncode,
-                            name: f'code with warning runs with werror=@with_werror@',
-                            werror: with_werror,
-                        ).returncode() == 0
-                    ) == expect_success,
+                # different than meson: if compiler.run() fails then the
+                # resulting run_result() is undefined which means that any
+                # attempt to call a method (like returncode) fails.
+                res = compiler.run(
+                    warncode,
+                    name: f'code with warning runs with werror=@with_werror@',
+                    werror: with_werror,
                 )
+
+                assert(res.compiled() == expect_success)
+                if res.compiled()
+                    assert(res.returncode() == 0)
+                endif
             endif
         endforeach
     endif
