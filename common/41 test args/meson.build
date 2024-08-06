@@ -45,12 +45,14 @@ test('custom target arg', tester, args: testfilect, env: env_array)
 env = environment()
 env.append('PATH', 'something')
 
-bash = find_program('bash')
+bash = find_program('bash', required: false)
 
-custompathtgt = custom_target(
-    'testpathappend',
-    output: 'nothing.txt',
-    build_always: true,
-    command: [bash, '-c', 'env'],
-    env: env,
-)
+if bash.found()
+    custompathtgt = custom_target(
+        'testpathappend',
+        output: 'nothing.txt',
+        build_always: true,
+        command: [bash, '-c', 'env'],
+        env: env,
+    )
+endif
