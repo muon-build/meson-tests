@@ -8,7 +8,10 @@ expected = {
     'colon': ':',
     'space': ' ',
     'multi1': '  ::$$  ::$$',
-    'multi2': '  ::$$\n\n  \n\n::$$',
+    # in the meson test this is:
+    # 'multi2': '  ::$$\n\n  \n\n::$$',
+    # but muon fmt fmt'd away the spaces :)
+    'multi2': '  ::$$\n\n\n\n::$$',
 }
 
 output = None
