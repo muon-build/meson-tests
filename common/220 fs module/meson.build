@@ -1,4 +1,4 @@
-project('fs module test')
+project('fs module test', 'c')
 
 is_windows = build_machine.system() == 'windows'
 
@@ -9,6 +9,8 @@ fs = import('fs')
 # e.g. fs.replace_suffix(files('meson.build'), '') -> 'meson'
 # in muon, it results in '/abs/path/to/file/meson'.
 f = ['meson.build']
+btgt = executable('btgt', 'btgt.c')
+ctgt = fs.copyfile('ctgt.txt')
 
 assert(fs.exists('meson.build'), 'Existing file reported as missing.')
 assert(not fs.exists('nonexisting'), 'Nonexisting file was found.')
@@ -98,10 +100,13 @@ assert(new == new_check, 'absolute path replace_suffix failed')
 
 new = fs.replace_suffix(btgt, '.ini')
 assert(new == 'btgt.ini', 'replace_suffix failed for build target')
+
+# different than meson: custom target outputs are stored as absolute paths so
+# fs functions working on them return absolute paths
 new = fs.replace_suffix(ctgt, '.ini')
-assert(new == 'ctgt.ini', 'replace_suffix failed for custom target')
+assert(fs.name(new) == 'ctgt.ini', 'replace_suffix failed for custom target')
 new = fs.replace_suffix(ctgt[0], '.ini')
-assert(new == 'ctgt.ini', 'replace_suffix failed for custom target index')
+assert(fs.name(new) == 'ctgt.ini', 'replace_suffix failed for custom target index')
 
 # -- hash
 # TODO: md5 algorithm, (meson docs say hash supports md5, sha1, sha224, sha256,
@@ -189,8 +194,8 @@ else
     )
 endif
 assert(fs.parent(btgt) == '.', 'failed to get dirname for build target')
-assert(fs.parent(ctgt) == '.', 'failed to get dirname for custom target')
-assert(fs.parent(ctgt[0]) == '.', 'failed to get dirname for custom target index')
+assert(fs.parent(ctgt) == meson.current_build_dir(), 'failed to get dirname for custom target')
+assert(fs.parent(ctgt[0]) == meson.current_build_dir(), 'failed to get dirname for custom target index')
 
 assert(fs.name('foo/bar') == 'bar', 'failed to get basename')
 assert(fs.name(f[1]) == 'meson.build', 'failed to get basename')
