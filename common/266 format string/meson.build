@@ -5,9 +5,10 @@ foreach t : [get_option('opt'), 42, true, false, 'str', ['list'], {'dict': 'valu
     message(t, '@0@'.format(t), f'@t@', [t], {'key': t})
 endforeach
 
+# diferent than meson: muon doesn't support env in str.format()
 # Deprecated but should work with str.format().
-env = environment()
-message('@0@'.format(env))
+# env = environment()
+# message('@0@'.format(env))
 
 # Should fail with f-string and message()
 error_msg = 'Value other than strings, integers, bools, options, dictionaries and lists thereof.'
