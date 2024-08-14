@@ -4,13 +4,16 @@ cc = meson.get_compiler('c')
 
 add_project_arguments(['-DFOO=0', '-DBAR=0'], language: 'c')
 
+# works with either python2 or python3
+python = find_program('python', 'python3')
+
 fs = import('fs')
 bar_content = fs.read('bar.c')
 bar_x = custom_target(
     input: 'bar.c',
     output: 'bar.x',
     command: [
-        'python3',
+        python,
         '-c', '''import sys;print(sys.argv[1].replace('@BAR@', 'bar'))''',
         bar_content,
     ],
