@@ -1,4 +1,4 @@
-project('foo', ['objc'])
+project('foo', ['c', 'objc'])
 
 l = static_library('foo', 'foo.m')
 
