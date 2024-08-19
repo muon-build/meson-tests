@@ -1,6 +1,10 @@
 project('180 escape', 'c')
 
-gen = generator(find_program('file.py'), arguments:['@INPUT@', 'erd\u0151', '@OUTPUT@'], output: '@BASENAME@')
+gen = generator(
+    find_program('file.py'),
+    arguments: ['@INPUT@', 'erd\u0151', '@OUTPUT@'],
+    output: '@BASENAME@',
+)
 
 gen_file = gen.process('file.c.in')
 
