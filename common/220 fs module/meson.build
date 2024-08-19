@@ -106,7 +106,10 @@ assert(new == 'btgt.ini', 'replace_suffix failed for build target')
 new = fs.replace_suffix(ctgt, '.ini')
 assert(fs.name(new) == 'ctgt.ini', 'replace_suffix failed for custom target')
 new = fs.replace_suffix(ctgt[0], '.ini')
-assert(fs.name(new) == 'ctgt.ini', 'replace_suffix failed for custom target index')
+assert(
+    fs.name(new) == 'ctgt.ini',
+    'replace_suffix failed for custom target index',
+)
 
 # -- hash
 # TODO: md5 algorithm, (meson docs say hash supports md5, sha1, sha224, sha256,
@@ -194,8 +197,14 @@ else
     )
 endif
 assert(fs.parent(btgt) == '.', 'failed to get dirname for build target')
-assert(fs.parent(ctgt) == meson.current_build_dir(), 'failed to get dirname for custom target')
-assert(fs.parent(ctgt[0]) == meson.current_build_dir(), 'failed to get dirname for custom target index')
+assert(
+    fs.parent(ctgt) == meson.current_build_dir(),
+    'failed to get dirname for custom target',
+)
+assert(
+    fs.parent(ctgt[0]) == meson.current_build_dir(),
+    'failed to get dirname for custom target index',
+)
 
 assert(fs.name('foo/bar') == 'bar', 'failed to get basename')
 assert(fs.name(f[1]) == 'meson.build', 'failed to get basename')
