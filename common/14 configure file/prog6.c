@@ -13,5 +13,7 @@ int main(void) {
         || strcmp(MESSAGE9, "foovar2@")
         || strcmp(MESSAGE10, "foovar2\\@")
         || strcmp(MESSAGE11, "foobarbazqux")
-        || strcmp(MESSAGE12, "foovar2\\@var3@var4\\@");
+        || strcmp(MESSAGE12, "foovar2\\@var3@var4\\@")
+        || strcmp(MESSAGE13, "$name =~ s/@/@@/g;")
+        || strcmp(MESSAGE14, "@:@@.@@@;@@@@ @@@@@");
 }

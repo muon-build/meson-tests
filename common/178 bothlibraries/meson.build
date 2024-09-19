@@ -1,4 +1,9 @@
-project('both libraries linking test', 'c', 'cpp')
+project(
+    'both libraries linking test',
+    'c',
+    'cpp',
+    default_options: ['cpp_std=c++11'],
+)
 
 both_libs = both_libraries('mylib', 'libfile.c')
 dep = declare_dependency(link_with: both_libs)

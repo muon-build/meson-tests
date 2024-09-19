@@ -44,7 +44,7 @@ if cc.get_id() == 'clang-cl' and cc.version().version_compare('< 12.0.0') and cp
 endif
 
 if cc.symbols_have_underscore_prefix()
-    add_project_arguments('-DMESON_TEST__UNDERSCORE_SYMBOL', language: 'c')
+    add_project_arguments('-DMESON_TEST__UNDERSCORE_SYMBOL', language: ['c', 'assembly'])
 endif
 
 copy = find_program('copyfile.py')
