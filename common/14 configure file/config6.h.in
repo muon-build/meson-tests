@@ -38,3 +38,9 @@
 
 /* This should never happen in the real world, right? */
 #define MESSAGE12 "@var1@var2\\\\@var3@var4\\\\@"
+
+/* Leave @/@@ as is */
+#define MESSAGE13 "$name =~ s/@/@@/g;"
+
+/* Leave zero length @@ keys as is */
+#define MESSAGE14 "@:@@.@@@;@@@@ @@@@@"
