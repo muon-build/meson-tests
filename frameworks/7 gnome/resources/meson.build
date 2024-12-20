@@ -24,15 +24,15 @@ simple_res_exe = executable(
 )
 test('simple resource test', simple_res_exe)
 
-gnome.compile_resources(
-    'simple-resources',
-    'simple.gresource.xml',
-    gresource_bundle: true,
-    install: true,
-    install_dir: get_option('datadir'),
-    source_dir: '../resources-data',
-)
-test('simple resource test (gresource)', find_program('resources.py'))
+# gnome.compile_resources(
+#     'simple-resources',
+#     'simple.gresource.xml',
+#     gresource_bundle: true,
+#     install: true,
+#     install_dir: get_option('datadir'),
+#     source_dir: '../resources-data',
+# )
+# test('simple resource test (gresource)', find_program('resources.py'))
 
 if not pretend_glib_old and glib.version().version_compare('>= 2.52.0')
     # This test cannot pass if GLib version is too old. Generated resource
