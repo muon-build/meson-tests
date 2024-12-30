@@ -1,4 +1,4 @@
-project('foo')
+project('foo', 'c')
 
 if meson.is_cross_build()
     error('MESON_SKIP_TEST Test does not make sense for cross builds')
