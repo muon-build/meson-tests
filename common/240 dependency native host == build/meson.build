@@ -12,7 +12,10 @@ dependency('zlib', native: true, required: false)
 dependency('zlib', native: false)
 
 # `native: true` should not make a difference when doing a native build.
-meson.override_dependency('expat', declare_dependency())
-dependency('expat')
-dependency('expat', native: true)
-dependency('expat', native: false)
+meson.override_dependency('dingbat', declare_dependency())
+dependency('dingbat')
+# different than meson: native: true does make a difference when doing a native
+# build.
+dingbat_native = dependency('dingbat', native: true, required: false)
+assert(not dingbat_native.found())
+dependency('dingbat', native: false)
