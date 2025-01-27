@@ -22,10 +22,7 @@ if c.returncode() != 0
     error('Executing script failed.')
 endif
 
-newline = '''
-'''
-
-sources = c.stdout().strip().split(newline)
+sources = c.stdout().strip().splitlines()
 
 e = executable('prog', sources)
 test('grabtest', e)
