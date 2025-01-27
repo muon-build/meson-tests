@@ -4,7 +4,8 @@
 import sys
 
 plain_arg = sys.argv[1]
-_, filename, _ = plain_arg.split(':')
+_, tail = plain_arg.split(':', 1)
+filename, _ = tail.rsplit(':', 1)
 try:
     with open(filename, 'rb') as f:
         content = f.read()
