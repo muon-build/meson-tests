@@ -61,9 +61,10 @@ endif
 
 py3 = import('python3').find_python()
 
+# different than meson, \r\n in program output not automatically converted to \n
 ret = run_command(py3, '-c', 'print("some output")', check: false)
 assert(ret.returncode() == 0, 'failed to run python3: ' + ret.stderr())
-assert(ret.stdout() == 'some output\n', 'failed to run python3')
+assert(ret.stdout().strip() == 'some output', 'failed to run python3')
 
 ret = run_command(py3, '-c', 'print("some output")', check: false, capture: false)
 assert(ret.returncode() == 0, 'failed to run python3: ' + ret.stderr())
@@ -82,7 +83,7 @@ ret = run_command(
 )
 assert(ret.returncode() == 0, 'failed to run python3: ' + ret.stderr())
 assert(
-    ret.stdout() == 'FOOBAR\n',
+    ret.stdout().strip() == 'FOOBAR',
     'stdout is "@0@" instead of FOOBAR'.format(ret.stdout()),
 )
 
