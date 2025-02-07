@@ -9,6 +9,6 @@ endif
 exe = executable(
     'prog',
     files('func.c', 'main.cc'),
-    c_pch: ['pch/func.h'],
-    cpp_pch: ['pch/main.h'],
+    c_pch: 'pch/func.h',
+    cpp_pch: 'pch/main.h',
 )
