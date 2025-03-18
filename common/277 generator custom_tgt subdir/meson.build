@@ -1,7 +1,8 @@
 project('276 generator custom_tgt subdir')
 
-python = find_program('python3', required: true)
+python = find_program('python', 'python3', required: true)
 args = [
+    # works with python2 or python3
     '-c', 'import sys; open(sys.argv[1], "w")',
     '@OUTPUT0@',
 ]
