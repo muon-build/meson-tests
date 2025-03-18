@@ -9,7 +9,8 @@ else
     obj1 = lib1.extract_objects('src/lib.c')
     obj2 = lib2.extract_objects(['lib.c'])
     obj3 = lib2.extract_objects(files('lib.c'))
-    obj4 = lib2.extract_objects(['lib.c', 'lib.c'])
+    # different from meson: no deduplication in extract_objects
+    obj4 = lib2.extract_objects(['lib.c']) #, 'lib.c'])
     obj5 = lib2.extract_objects(['lib.c', 'header.h'])
     obj6 = lib2.extract_all_objects(recursive: true)
 

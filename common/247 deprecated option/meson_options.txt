@@ -33,4 +33,7 @@ option(
 )
 
 # A project option is replaced by a module option
-option('o8', type: 'string', value: '', deprecated: 'python.platlibdir')
+option('o8', type: 'string', value: '', deprecated: 'python_platlibdir')
+
+# different than meson: python.platlibdir is not an option
+option('python_platlibdir', type: 'string')

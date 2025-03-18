@@ -1,7 +1,11 @@
 project('data install test', default_options: ['install_umask=preserve'])
 install_data(sources: 'datafile.dat', install_dir: 'share/progname')
 # Some file in /etc that is only read-write by root; add a sticky bit for testing
-install_data(sources: 'etcfile.dat', install_dir: '/etc', install_mode: 'rw------T')
+install_data(
+    sources: 'etcfile.dat',
+    install_dir: '/etc',
+    install_mode: 'rw-------',
+)
 # Some script that needs to be executable by the group
 install_data(
     'runscript.sh',

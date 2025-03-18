@@ -8,7 +8,4 @@ lead_directory_missing = true
 
 patch_directory = foo-1.0
 
-diff_files =
-  patchfile/0001-Change-return-value-to-43.patch,
-  patchfile/0002-Change-return-value-to-44.patch,
-  patchfile/0001-Change-foo-to-executable.patch
+diff_files = patchfile/0001-Change-return-value-to-43.patch, patchfile/0002-Change-return-value-to-44.patch, patchfile/0001-Change-foo-to-executable.patch

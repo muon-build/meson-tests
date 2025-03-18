@@ -2,7 +2,7 @@
 # Copyright 2016-2023 The Meson Developers
 # Copyright © 2024 Intel Corporation
 
-project('proj', 'c')
+project('proj', 'c', default_options: ['default_library=shared'])
 subproject('sub')
 libSub = dependency('sub', fallback: ['sub', 'libSub'])
 
@@ -77,16 +77,17 @@ assert(d.type_name() == 'internal')
 d = dependency('gobject-2.0', required: false)
 assert(not d.found())
 
-# Verify that implicit fallback works because subprojects/sub_implicit/subprojects/subsub
-# directory exists.
-d = dependency('subsub')
-assert(d.found(), 'Should be able to fallback to sub-subproject')
+# different than meson: subprojects do not promote
+# # Verify that implicit fallback works because subprojects/sub_implicit/subprojects/subsub
+# # directory exists.
+# d = dependency('subsub')
+# assert(d.found(), 'Should be able to fallback to sub-subproject')
 
-# Verify that implicit fallback works because
-# subprojects/sub_implicit/subprojects/subsub/subprojects/subsubsub.wrap
-# file exists.
-d = dependency('subsubsub')
-assert(d.found(), 'Should be able to fallback to sub-sub-subproject')
+# # Verify that implicit fallback works because
+# # subprojects/sub_implicit/subprojects/subsub/subprojects/subsubsub.wrap
+# # file exists.
+# d = dependency('subsubsub')
+# assert(d.found(), 'Should be able to fallback to sub-sub-subproject')
 
 # Verify that `static: true` implies 'default_library=static'.
 d = dependency('sub_static', static: true)

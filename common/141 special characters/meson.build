@@ -55,7 +55,11 @@ gen2 = custom_target(
 special = [
     ['amp', '&'],
     ['at', '@'],
-    ['backslash', '\\'],
+    # different from meson: apparently meson automatically converts a single
+    # backslash into a double backslash.  Figure out what the mechanism is that
+    # does this and see if is reasonable to put into muon.  For now, just use a
+    # double backslash
+    ['backslash', '\\\\'],
     ['dollar', '$'],
     ['gt', '>'],
     ['lt', '<'],

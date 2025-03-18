@@ -34,7 +34,7 @@ gnome.compile_resources(
 )
 test('simple resource test (gresource)', find_program('resources.py'))
 
-if not pretend_glib_old and glib.version() >= '2.52.0'
+if not pretend_glib_old and glib.version().version_compare('>= 2.52.0')
     # This test cannot pass if GLib version is too old. Generated resource
     # dependencies do not work correctly and Meson will raise an error if the
     # user tries to use either the 'dependencies' kwarg or a gresource file that

@@ -2,7 +2,7 @@ project('custom target input extracted objects', 'c')
 
 if meson.backend() == 'xcode'
     error(
-        'MESON_SKIP_TEST: sometimes Xcode puts object files in weird paths and we cannot extract them.',
+        'MESON_SKIP_TEST: sometimes Xcode puts object files in weird paths and we can not extract them.',
     )
 endif
 
