@@ -16,10 +16,13 @@ assert(not cc.compiles(valid, name: 'valid', required: opt))
 assert(not cc.links(valid, name: 'valid', required: opt))
 if meson.can_run_host_binaries()
     res = cc.run(valid, name: 'valid', required: opt)
-    assert(res.compiled())
-    assert(res.returncode() == 0)
-    assert(res.stdout() == '')
-    assert(res.stderr() == '')
+    # different than meson: a disabled compiler.run() returns an uncompiled
+    # runresult
+    # assert(res.compiled())
+    # assert(res.returncode() == 0)
+    # assert(res.stdout() == '')
+    # assert(res.stderr() == '')
+    assert(not res.compiled())
 endif
 
 # testcase expect_error('''compiler.compiles keyword argument 'required' was of type str but should have been one of: bool, UserFeatureOption''')
