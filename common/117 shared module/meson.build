@@ -5,8 +5,7 @@ c = meson.get_compiler('c')
 # Windows UWP doesn't support the ToolHelp API we use in this test to emulate
 # runtime symbol resolution.
 if host_machine.system() == 'windows'
-    if not c.compiles(
-        '''
+    if not c.compiles('''
 #include <windows.h>
 #include <tlhelp32.h>
 
@@ -14,8 +13,7 @@ HANDLE func(void)
 {
  return CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, 0);
 }
-''',
-    )
+''')
         error('MESON_SKIP_TEST Windows UWP does not support this test.')
     endif
 endif

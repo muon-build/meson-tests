@@ -15,15 +15,13 @@
 project('C and C++ static link test', ['c', 'cpp'])
 
 if meson.backend() == 'xcode'
-    error(
-        '''MESON_SKIP_TEST: overriding link language is not supported in Xcode.
+    error('''MESON_SKIP_TEST: overriding link language is not supported in Xcode.
 
 If you really need this, then patches are welcome. The only known way is
 to create a dummy C++ file in the meson-private directory and adding
 that to the target's source list when needed. The primitives exist
 but may need some tweaking. Grep for language_stdlib_only_link_flags to find
-where this is handled in other backends.''',
-    )
+where this is handled in other backends.''')
 endif
 
 # Verify that adding link arguments works.

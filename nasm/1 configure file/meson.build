@@ -24,11 +24,17 @@ conf = configuration_data()
 
 conf.set('HELLO', 0)
 
+debug_nasm = []
+if get_option('debug')
+    debug_nasm = ['-g']
+endif
+
 asm_gen = generator(
     nasm,
     output: '@BASENAME@.o',
     arguments: [
         '-f', asm_format,
+        debug_nasm,
         '-i', meson.current_source_dir() + '/',
         '-i', join_paths(meson.current_source_dir(), ''),
         '-P', join_paths(meson.current_build_dir(), 'config.asm'),
@@ -48,7 +54,7 @@ link_args = cc.get_supported_link_arguments(['-no-pie'])
 
 exe = executable(
     'hello',
-    asm_gen.process('hello.asm'),
+    asm_gen.process('hello-' + host_machine.cpu_family() + '.asm'),
     link_args: link_args,
 )
 

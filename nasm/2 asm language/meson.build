@@ -48,7 +48,7 @@ link_args = cc.get_supported_link_arguments(['-no-pie'])
 
 exe = executable(
     'hello',
-    'hello.asm',
+    'hello-' + host_machine.cpu_family() + '.asm',
     nasm_args: '-DFOO',
     link_args: link_args,
 )
@@ -59,7 +59,7 @@ threads = dependency('threads')
 
 exe2 = executable(
     'hello_w_threads',
-    'hello.asm',
+    'hello-' + host_machine.cpu_family() + '.asm',
     config_file,
     nasm_args: '-DFOO',
     link_args: link_args,
