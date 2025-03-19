@@ -158,10 +158,7 @@ foreach t : [
     ['common/144 link depends custom target', {'python': true}],
     ['common/145 recursive linking'],
     ['common/146 library at root'],
-    [
-        'common/147 simd',
-        {'failing': true, 'skip': 'relies on unstable-simd module'},
-    ],
+    ['common/147 simd', {'failing': true}],
     ['common/148 shared module resolving symbol in executable'],
     ['common/149 dotinclude'],
     ['common/150 reserved targets', {'python': true}],
@@ -170,10 +167,7 @@ foreach t : [
     ['common/153 wrap file should not failed', {'git_clean': is_git_repo}],
     ['common/154 includedir subproj'],
     ['common/155 subproject dir name collision'],
-    [
-        'common/156 config tool variable',
-        {'failing': true, 'skip': 'relies on config-tool'},
-    ],
+    ['common/156 config tool variable', {'failing': true}],
     ['common/157 custom target subdir depend files', {'python': true}],
     ['common/158 disabler', {'skip_analyze': true}],
     ['common/159 array option'],
@@ -201,10 +195,7 @@ foreach t : [
     ['common/181 same target name flat layout'],
     ['common/182 find override', {'python': true}],
     ['common/183 partial dependency'],
-    [
-        'common/184 openmp',
-        {'failing': true, 'skip': 'requires dependency openmp'},
-    ],
+    ['common/184 openmp', {'failing': true}],
     ['common/185 same target name'],
     ['common/186 test depends', {'python': true}],
     ['common/187 args flattening'],
@@ -256,13 +247,7 @@ foreach t : [
     ],
     ['common/228 custom_target source', {'python': true}],
     ['common/229 disabler array addition'],
-    [
-        'common/230 external project',
-        {
-            'failing': true,
-            'skip': 'requires unstable_external_project module',
-        },
-    ],
+    ['common/230 external project', { 'failing': true, }],
     ['common/231 subdir files'],
     ['common/232 dependency allow_fallback'],
     ['common/233 wrap case'],
@@ -326,50 +311,20 @@ foreach t : [
     ['common/280 pkgconfig-gen'],
 
     ['python/1 basic', {'python': true}],
-    [
-        'python/2 extmodule',
-        {
-            'python': true,
-            'skip': 'requires python_installation.dependency()',
-        },
-    ],
-    [
-        'python/3 cython',
-        {
-            'python': true,
-            'skip': 'requires python_installation.dependency()',
-        },
-    ],
+    ['python/2 extmodule', {'python': true, 'failing': true}],
+    ['python/3 cython', {'python': true, 'failing': true}],
     [
         'python/4 custom target depends extmodule',
-        {
-            'python': true,
-            'skip': 'requires python_installation.dependency()',
-        },
+        {'python': true, 'failing': true},
     ],
-    [
-        'python/8 different python versions',
-        {
-            'python': true,
-            'skip': 'requires python_installation.dependency()',
-        },
-    ],
+    ['python/8 different python versions', {'python': true, 'failing': true}],
     ['python/5 modules kwarg', {'python': true}],
     ['python/6 failing subproject', {'python': true, 'failing': true}],
     ['python/7 install path', {'python': true}],
-    [
-        'python/9 extmodule limited api',
-        {
-            'python': true,
-            'skip': 'requires python_installation.`extension_module()`',
-        },
-    ],
+    ['python/9 extmodule limited api', {'python': true, 'failing': true}],
     [
         'python/10 extmodule limited api disabled',
-        {
-            'python': true,
-            'skip': 'requires python_installation.`extension_module()`',
-        },
+        {'python': true, 'failing': true}
     ],
 
     # native
