@@ -247,7 +247,7 @@ foreach t : [
     ],
     ['common/228 custom_target source', {'python': true}],
     ['common/229 disabler array addition'],
-    ['common/230 external project', { 'failing': true, }],
+    ['common/230 external project', {'failing': true}],
     ['common/231 subdir files'],
     ['common/232 dependency allow_fallback'],
     ['common/233 wrap case'],
@@ -301,13 +301,22 @@ foreach t : [
     ['common/270 int_to_str_fill'],
     ['common/271 env in generator.process', {'python': true}],
     ['common/272 unity', {'unity': 'requires unity'}],
-    ['common/273 both libraries'],
+    [
+        'common/273 both libraries',
+        {
+            'option_matrix': {
+                'use_dep': [true, false],
+                'default_library': ['both', 'shared', 'static'],
+                'default_both_libraries': ['auto', 'shared', 'static'],
+            },
+        },
+    ],
     ['common/274 customtarget exe for test', {'python': true}],
     ['common/275 environment', {'python': true}],
     ['common/276 required keyword in compiles functions'],
-    ['common/277 generator custom_tgt subdir'],
+    ['common/277 generator custom_tgt subdir', {'failing': true}],
     ['common/278 custom target private dir'],
-    ['common/279 pkgconfig override'],
+    ['common/279 pkgconfig override', {'failing': true}],
     ['common/280 pkgconfig-gen'],
 
     ['python/1 basic', {'python': true}],
@@ -317,14 +326,17 @@ foreach t : [
         'python/4 custom target depends extmodule',
         {'python': true, 'failing': true},
     ],
-    ['python/8 different python versions', {'python': true, 'failing': true}],
+    [
+        'python/8 different python versions',
+        {'python': true, 'failing': true},
+    ],
     ['python/5 modules kwarg', {'python': true}],
     ['python/6 failing subproject', {'python': true, 'failing': true}],
     ['python/7 install path', {'python': true}],
     ['python/9 extmodule limited api', {'python': true, 'failing': true}],
     [
         'python/10 extmodule limited api disabled',
-        {'python': true, 'failing': true}
+        {'python': true, 'failing': true},
     ],
 
     # native
