@@ -314,7 +314,7 @@ foreach t : [
     ['common/274 customtarget exe for test', {'python': true}],
     ['common/275 environment', {'python': true}],
     ['common/276 required keyword in compiles functions'],
-    ['common/277 generator custom_tgt subdir', {'failing': true}],
+    ['common/277 generator custom_tgt subdir'],
     ['common/278 custom target private dir'],
     ['common/279 pkgconfig override', {'failing': true}],
     ['common/280 pkgconfig-gen'],
