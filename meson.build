@@ -147,10 +147,7 @@ foreach t : [
     ['common/136 empty build file'],
     ['common/137 whole archive'],
     ['common/138 C and CPP link'],
-    [
-        'common/139 mesonintrospect from scripts',
-        {'python': true, 'failing': true},
-    ],
+    ['common/139 mesonintrospect from scripts', {'python': true}],
     ['common/140 custom target multiple outputs', {'python': true}],
     ['common/141 special characters', {'python': true}],
     ['common/142 nested links'],
