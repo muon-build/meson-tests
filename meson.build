@@ -313,9 +313,10 @@ foreach t : [
     ['common/276 required keyword in compiles functions'],
     ['common/277 generator custom_tgt subdir'],
     ['common/278 custom target private dir'],
-    ['common/279 pkgconfig override', {'failing': true}],
+    ['common/279 pkgconfig override'],
     ['common/280 pkgconfig-gen'],
 
+    # python
     ['python/1 basic', {'python': true}],
     ['python/2 extmodule', {'python': true, 'failing': true}],
     ['python/3 cython', {'python': true, 'failing': true}],
