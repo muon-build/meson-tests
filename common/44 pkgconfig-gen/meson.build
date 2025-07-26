@@ -186,8 +186,6 @@ pkgg.generate(
 )
 to_validate += 'libvartest2'
 
-cmp = find_program('diff')
-
 privder = '.muon'
 env = environment()
 env.prepend('PKG_CONFIG_PATH', meson.current_build_dir() / privder)
@@ -201,11 +199,16 @@ foreach pc : to_validate
     )
 
     test(
-        'diff ' + pc,
-        cmp,
+        f'diff @pc@',
+        find_program('muon'),
         args: [
-            files('expected' / pc + '.pc'),
-            meson.current_build_dir() / privder / pc + '.pc',
+            'internal',
+            'eval',
+            '-c',
+            'import(\'fs\').read(\'@0@\') == import(\'fs\').read(\'@1@\') ? print(\'\') : error(\'files differ\')'.format(
+                meson.current_source_dir() / 'expected' / pc + '.pc',
+                meson.current_build_dir() / privder / pc + '.pc',
+            )
         ],
     )
 endforeach
