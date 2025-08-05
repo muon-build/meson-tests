@@ -57,4 +57,8 @@ custompathtgt = custom_target(
 
 # https://github.com/mesonbuild/meson/issues/3552
 wrap = find_program('wrap.py')
-test('external program arg', wrap, args: [testerpy, testfile])
+# different: when passing a found python script to test args it expands into
+# [python, script].  muon does not expand scripts this way.  All #! handling is
+# done by run_cmd when we are actually executing a script.
+python = find_program('python3', 'python')
+test('external program arg', wrap, args: [python, testerpy, testfile])
