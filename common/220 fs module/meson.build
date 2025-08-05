@@ -59,7 +59,8 @@ winabs = 'q:/foo'
 unixabs = '/foo'
 if is_windows
     assert(fs.is_absolute(winabs), 'is_absolute windows not detected')
-    assert(not fs.is_absolute(unixabs), 'is_absolute unix false positive')
+    # different from meson: paths beginning with / are absolute on windows too.
+    assert(fs.is_absolute(unixabs), 'is_absolute unix false positive')
 else
     assert(fs.is_absolute(unixabs), 'is_absolute unix not detected')
     assert(not fs.is_absolute(winabs), 'is_absolute windows false positive')
@@ -93,7 +94,8 @@ assert(new == 'foo', 'replace_suffix did not only delete last suffix')
 # `/` on windows is interpreted like `.drive` which in general may not be `c:/`
 # the files need not exist for fs.replace_suffix()
 original = is_windows ? 'j:/foo/bar.txt' : '/foo/bar.txt'
-new_check = is_windows ? 'j:\\foo\\bar.ini' : '/foo/bar.ini'
+# different than meson: muon always uses / as a path separator
+new_check = is_windows ? 'j:/foo/bar.ini' : '/foo/bar.ini'
 
 new = fs.replace_suffix(original, '.ini')
 assert(new == new_check, 'absolute path replace_suffix failed')
@@ -234,20 +236,20 @@ assert(fs.stem(ctgt[0]) == 'ctgt', 'failed to get stem of custom target index')
 # relative_to
 if build_machine.system() == 'windows'
     # strings
-    assert(fs.relative_to('c:\\prefix\\lib\\foo', 'c:\\prefix') == 'lib\\foo')
-    assert(fs.relative_to('c:\\prefix\\lib', 'c:\\prefix\\bin') == '..\\lib')
-    assert(fs.relative_to('c:\\proj1\\foo', 'd:\\proj1\\bar') == 'c:\\proj1\\foo')
-    assert(fs.relative_to('prefix\\lib\\foo', 'prefix') == 'lib\\foo')
-    assert(fs.relative_to('prefix\\lib', 'prefix\\bin') == '..\\lib')
-    assert(fs.relative_to('proj1\\foo', 'proj1\\bar') == '..\\foo')
+    assert(fs.relative_to('c:/prefix/lib/foo', 'c:/prefix') == 'lib/foo')
+    assert(fs.relative_to('c:/prefix/lib', 'c:/prefix/bin') == '../lib')
+    assert(fs.relative_to('c:/proj1/foo', 'd:/proj1/bar') == 'c:/proj1/foo')
+    assert(fs.relative_to('prefix/lib/foo', 'prefix') == 'lib/foo')
+    assert(fs.relative_to('prefix/lib', 'prefix/bin') == '../lib')
+    assert(fs.relative_to('proj1/foo', 'proj1/bar') == '../foo')
     assert(
-        fs.relative_to('subdir/subdirfile.txt', meson.current_source_dir()) == 'subdir\\subdirfile.txt',
+        fs.relative_to('subdir/subdirfile.txt', meson.current_source_dir()) == 'subdir/subdirfile.txt',
     )
     assert(
-        fs.relative_to(files('meson.build'), files('subdir/meson.build')) == '..\\..\\meson.build',
+        fs.relative_to(files('meson.build'), files('subdir/meson.build')) == '../../meson.build',
     )
     assert(
-        fs.relative_to(files('meson.build'), 'subdir/meson.build') == '..\\..\\meson.build',
+        fs.relative_to(files('meson.build'), 'subdir/meson.build') == '../../meson.build',
     )
 else
     # strings
