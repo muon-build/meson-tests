@@ -6,8 +6,8 @@ project('as-needed test', 'cpp')
 
 # Credits for portable ISO C++ idea go to sarum9in
 
-libA = library('A', 'libA.cpp')
-libB = library('B', 'libB.cpp', link_with: libA)
+libA = shared_library('A', 'libA.cpp')
+libB = shared_library('B', 'libB.cpp', link_with: libA)
 
 main_exe = executable('C', 'main.cpp', link_with: [libA, libB])
 test('main test', main_exe)
