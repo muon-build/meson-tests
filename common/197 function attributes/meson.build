@@ -68,7 +68,10 @@ expected += {
     'dllimport': ['windows', 'cygwin'].contains(host_machine.system()),
 }
 
-if c.get_id() == 'gcc' and ['windows', 'cygwin'].contains(host_machine.system())
+# These attributes exist on msys2 gcc 15.1.0 on system 'windows'.
+# They may also work for modern gcc on system 'cygwin' - untested.
+# If so, remove this if block altogether.
+if c.get_id() == 'gcc' and host_machine.system() == 'cygwin'
     expected += {
         'visibility': false,
         'visibility:hidden': false,
