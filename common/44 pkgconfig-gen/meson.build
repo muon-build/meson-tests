@@ -36,18 +36,21 @@ to_validate = []
 # generate for systems without a glib pc file
 pkgg.generate(name: 'glib-2.0', dataonly: true)
 
-pkgg.generate(
-    libraries: [lib, '-lz'],
-    subdirs: '.',
-    version: libver,
-    name: 'libsimple',
-    filebase: 'simple',
-    description: 'A simple demo library.',
-    requires: 'glib-2.0', # Not really, but only here to test that this works.
-    requires_private: ['gio-2.0', 'gobject-2.0'],
-    libraries_private: [lib, '-lz'],
-)
-to_validate += 'simple'
+if not (cc.get_id() == 'gcc' and host_machine.system() == 'windows')
+    # These libraries are not present in a msys2 default install.
+    pkgg.generate(
+        libraries: [lib, '-lz'],
+        subdirs: '.',
+        version: libver,
+        name: 'libsimple',
+        filebase: 'simple',
+        description: 'A simple demo library.',
+        requires: 'glib-2.0', # Not really, but only here to test that this works.
+        requires_private: ['gio-2.0', 'gobject-2.0'],
+        libraries_private: [lib, '-lz'],
+    )
+    to_validate += 'simple'
+endif
 
 answerlib = shared_library('answer', 'answer.c')
 
@@ -190,6 +193,21 @@ privder = '.muon'
 env = environment()
 env.prepend('PKG_CONFIG_PATH', meson.current_build_dir() / privder)
 
+diffcmd = 'import(\'fs\').read(\'@0@\') == import(\'fs\').read(\'@1@\') ? print(\'\') : error(\'files differ\')'
+
+if cc.get_id() == 'gcc' and host_machine.system() == 'windows'
+    # msys2/mingw64 produces a .pc file with "-lz.dll" instead of expected "-lz".
+    # Although this works, it must be normalized for the the .pc diffs.
+    # Likewise, normalize "prefix=/usr/local" to "prefix=/usr" to match expected.
+    read1 = 'read(\'@1@\')'
+    diffcmd = diffcmd.replace(
+        read1,
+        read1
+        + '.replace(\'-lz.dll\',\'-lz\')'
+        + '.replace(\'prefix=/usr/local\',\'prefix=/usr\')',
+    )
+endif
+
 foreach pc : to_validate
     test(
         'validate' + pc,
@@ -204,8 +222,7 @@ foreach pc : to_validate
         args: [
             'internal',
             'eval',
-            '-c',
-            'import(\'fs\').read(\'@0@\') == import(\'fs\').read(\'@1@\') ? print(\'\') : error(\'files differ\')'.format(
+            '-c', diffcmd.format(
                 meson.current_source_dir() / 'expected' / pc + '.pc',
                 meson.current_build_dir() / privder / pc + '.pc',
             )
