@@ -53,7 +53,7 @@ input = output + '.in'
 
 copygen = generator(copy, arguments: ['@INPUT@', '@OUTPUT@'], output: '@BASENAME@')
 
-l = library(
+l = shared_library(
     'square-gen',
     crt_workaround + [copygen.process(input)],
     vs_module_defs: 'square.def',
@@ -68,6 +68,6 @@ copyct = custom_target(
     command: [copy, '@INPUT@', '@OUTPUT@'],
 )
 
-l = library('square-ct', crt_workaround + [copyct], vs_module_defs: 'square.def')
+l = shared_library('square-ct', crt_workaround + [copyct], vs_module_defs: 'square.def')
 
 test('square-ct-test', executable('square-ct-test', 'main.c', link_with: l))
