@@ -1,7 +1,7 @@
 # a sort-of realistic example that combines the sourceset and keyval
 # modules, inspired by QEMU's build system
 
-project('sourceset-example', 'cpp', default_options: ['cpp_std=c++11'])
+project('sourceset-example', 'cpp', default_options: ['cpp_std=c++14'])
 
 cppid = meson.get_compiler('cpp').get_id()
 if cppid == 'pgi'
