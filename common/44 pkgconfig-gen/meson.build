@@ -36,8 +36,8 @@ to_validate = []
 # generate for systems without a glib pc file
 pkgg.generate(name: 'glib-2.0', dataonly: true)
 
-if not (cc.get_id() == 'gcc' and host_machine.system() == 'windows')
-    # These libraries are not present in a msys2 default install.
+if host_machine.system() != 'windows'
+    # These libraries are not present in a windows default install.
     pkgg.generate(
         libraries: [lib, '-lz'],
         subdirs: '.',
@@ -195,16 +195,13 @@ env.prepend('PKG_CONFIG_PATH', meson.current_build_dir() / privder)
 
 diffcmd = 'import(\'fs\').read(\'@0@\') == import(\'fs\').read(\'@1@\') ? print(\'\') : error(\'files differ\')'
 
-if cc.get_id() == 'gcc' and host_machine.system() == 'windows'
-    # msys2/mingw64 produces a .pc file with "-lz.dll" instead of expected "-lz".
-    # Although this works, it must be normalized for the the .pc diffs.
-    # Likewise, normalize "prefix=/usr/local" to "prefix=/usr" to match expected.
+if host_machine.system() == 'windows'
+    # strip .dll from libs so the pc diffs cleanly, e.g. "-lz.dll" becomes "-lz".
     read1 = 'read(\'@1@\')'
     diffcmd = diffcmd.replace(
         read1,
         read1
-        + '.replace(\'-lz.dll\',\'-lz\')'
-        + '.replace(\'prefix=/usr/local\',\'prefix=/usr\')',
+        + '.replace(\'-lz.dll\',\'-lz\')',
     )
 endif
 
