@@ -14,6 +14,10 @@ foreach lang : ['c', 'cpp']
     cc_id = cc.get_id()
     ## Build a trivial executable with mixed LLVM IR source
     if cc_id == 'clang'
+        if build_machine.system() == 'windows'
+            error('MESON_SKIP_TEST: this test does not work when using msvc\'s clang')
+        endif
+
         e = executable('square_ir_' + lang, 'square.ll', 'main.' + lang)
         test('test IR square' + lang, e)
     endif
