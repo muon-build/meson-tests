@@ -51,6 +51,8 @@ endif
 # compiler.has_link_argument
 if cc.get_argument_syntax() == 'msvc'
     is_arg = '/OPT:REF'
+elif cc.get_linker_id() == 'lld-link'
+    is_arg = '-Wl,/OPT:REF'
 else
     is_arg = '-Wl,-L/tmp'
 endif
