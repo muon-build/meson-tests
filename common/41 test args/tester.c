@@ -3,7 +3,9 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+#include <io.h>
+#else
 #include <unistd.h>
 #endif
 
