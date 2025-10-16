@@ -2,7 +2,7 @@ project(
     'both libraries linking test',
     'c',
     'cpp',
-    default_options: ['cpp_std=c++11'],
+    default_options: ['cpp_std=c++14'],
 )
 
 both_libs = both_libraries('mylib', 'libfile.c')
@@ -70,7 +70,7 @@ libccpp = both_libraries(
     'ccpp',
     'foo.cpp',
     'libfile.c',
-    cpp_args: ['-std=c++11'],
+    cpp_args: ['-std=c++14'],
     c_static_args: ['-DSTATIC_COMPILATION'],
     cpp_static_args: ['-DSTATIC_COMPILATION'],
 )
