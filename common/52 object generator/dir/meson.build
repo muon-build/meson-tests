@@ -2,7 +2,7 @@
 gen4 = generator(
     python,
     output: ['@BASENAME@.o'],
-    arguments: [comp, cc, '@INPUT@', '@OUTPUT0@'],
+    arguments: [comp, cc, cc_id, '@INPUT@', '@OUTPUT0@'],
 )
 
 generated4 = gen4.process(files('source5.c', 'source6.c'))

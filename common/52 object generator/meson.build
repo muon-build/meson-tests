@@ -16,13 +16,14 @@ else
 endif
 
 cc = meson.get_compiler('c').cmd_array().get(-1)
+cc_id = meson.get_compiler('c').get_id()
 # Generate an object file manually.
-gen = generator(python, output: outputname, arguments: [comp, cc, '@INPUT@', '@OUTPUT@'])
+gen = generator(python, output: outputname, arguments: [comp, cc, cc_id, '@INPUT@', '@OUTPUT@'])
 
 generated = gen.process(['source.c', 'source2.c'])
 
 # Generate an object file with indexed OUTPUT replacement.
-gen2 = generator(python, output: outputname, arguments: [comp, cc, '@INPUT@', '@OUTPUT0@'])
+gen2 = generator(python, output: outputname, arguments: [comp, cc, cc_id, '@INPUT@', '@OUTPUT0@'])
 generated2 = gen2.process(['source3.c'])
 
 # Generate an object file ending with .o even on Windows.
@@ -30,7 +31,7 @@ generated2 = gen2.process(['source3.c'])
 gen3 = generator(
     python,
     output: '@BASENAME@.o',
-    arguments: [comp, cc, '@INPUT@', '@OUTPUT@'],
+    arguments: [comp, cc, cc_id, '@INPUT@', '@OUTPUT@'],
 )
 
 generated3 = gen3.process(['source4.c'])

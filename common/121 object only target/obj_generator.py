@@ -5,13 +5,14 @@
 import sys, subprocess
 
 if __name__ == '__main__':
-    if len(sys.argv) != 4:
-        print(sys.argv[0], 'compiler input_file output_file')
+    if len(sys.argv) != 5:
+        print(sys.argv[0], 'compiler compiler_id input_file output_file')
         sys.exit(1)
     compiler = sys.argv[1]
-    ifile = sys.argv[2]
-    ofile = sys.argv[3]
-    if compiler.endswith('cl'):
+    compiler_id = sys.argv[2]
+    ifile = sys.argv[3]
+    ofile = sys.argv[4]
+    if compiler_id == 'msvc':
         cmd = [compiler, '/nologo', '/MDd', '/Fo' + ofile, '/c', ifile]
     elif sys.platform == 'sunos5':
         cmd = [compiler, '-fpic', '-c', ifile, '-o', ofile]
