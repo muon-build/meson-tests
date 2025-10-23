@@ -5,6 +5,7 @@ source4 = configure_file(
     command: [
         comp,
         cc,
+        cc_id,
         files('source4.c'),
         join_paths(meson.current_build_dir(), 'source4' + ext),
     ],
@@ -19,6 +20,7 @@ configure_file(
     command: [
         comp,
         cc,
+        cc_id,
         files('source5.c'),
         join_paths(meson.current_build_dir(), 'source5' + ext),
     ],
@@ -36,6 +38,7 @@ configure_file(
     command: [
         comp,
         cc,
+        cc_id,
         files('source6.c'),
         join_paths(meson.current_build_dir(), 'source6' + ext),
     ],

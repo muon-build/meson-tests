@@ -9,6 +9,7 @@ else
 endif
 
 cc = meson.get_compiler('c').cmd_array().get(-1)
+cc_id = meson.get_compiler('c').get_id()
 
 subdir('objdir')
 subdir('progdir')

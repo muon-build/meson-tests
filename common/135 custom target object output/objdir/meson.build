@@ -3,5 +3,5 @@ object = custom_target(
     'object',
     input: 'source.c',
     output: outputname,
-    command: [comp, cc, '@INPUT@', '@OUTPUT@'],
+    command: [comp, cc, cc_id, '@INPUT@', '@OUTPUT@'],
 )

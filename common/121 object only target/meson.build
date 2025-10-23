@@ -17,6 +17,7 @@ else
 endif
 
 cc = meson.get_compiler('c').cmd_array().get(-1)
+cc_id = meson.get_compiler('c').get_id()
 
 # Generate an object file with configure_file to mimic prebuilt objects
 # provided by the source tree
@@ -26,6 +27,7 @@ source1 = configure_file(
     command: [
         comp,
         cc,
+        cc_id,
         files('source.c'),
         join_paths(meson.current_build_dir(), 'source' + ext),
     ],
@@ -34,14 +36,14 @@ source1 = configure_file(
 obj = static_library('obj', objects: source1)
 
 # Generate an object file manually.
-gen = generator(comp, output: '@BASENAME@' + ext, arguments: [cc, '@INPUT@', '@OUTPUT@'])
+gen = generator(comp, output: '@BASENAME@' + ext, arguments: [cc, cc_id, '@INPUT@', '@OUTPUT@'])
 
 generated = gen.process(['source2.c'])
 
 shr = shared_library('shr', generated, vs_module_defs: 'source2.def')
 
 # Generate an object file with indexed OUTPUT replacement.
-gen2 = generator(comp, output: '@BASENAME@' + ext, arguments: [cc, '@INPUT@', '@OUTPUT0@'])
+gen2 = generator(comp, output: '@BASENAME@' + ext, arguments: [cc, cc_id, '@INPUT@', '@OUTPUT0@'])
 generated2 = gen2.process(['source3.c'])
 
 stc = static_library('stc', generated2)
