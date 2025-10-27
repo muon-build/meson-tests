@@ -61,7 +61,7 @@ foreach t : [
     ['common/50 custom target chain', {'python': true}],
     ['common/51 run target', {'python': true}],
     ['common/52 object generator', {'python': true}],
-    ['common/53 install script', {'python': true}],
+    ['common/53 install script', {'python': true, 'skip_uninstall': true}],
     ['common/54 custom target source output', {'python': true}],
     ['common/55 exe static shared'],
     ['common/56 array methods'],
@@ -213,7 +213,14 @@ foreach t : [
     ['common/202 custom target build by default', {'python': true}],
     ['common/203 find_library and headers'],
     ['common/204 line continuation'],
-    ['common/205 native file path override'],
+    [
+        'common/205 native file path override',
+        {
+            'option_matrix': {
+                'bindir': ['custom_bindir'],
+            },
+        },
+    ],
     ['common/206 tap tests'],
     ['common/207 warning level 0'],
     ['common/208 link custom', {'python': true}],
@@ -269,7 +276,15 @@ foreach t : [
     ['common/249 install_symlink'],
     ['common/250 system include dir'],
     ['common/251 add_project_dependencies'],
-    ['common/252 install data structured', {'python': true}],
+    [
+        'common/252 install data structured',
+        {
+            'python': true,
+            'option_matrix': {
+                'python.purelibdir': ['python_purelib'],
+            },
+        },
+    ],
     ['common/253 subproject dependency variables'],
     ['common/254 long output'],
     ['common/255 module warnings', {'skip': 'not relevant to muon'}],
@@ -342,7 +357,7 @@ foreach t : [
     ['native/2 global arg'],
     ['native/3 pipeline', {'python': true}],
     ['native/4 tryrun'],
-    ['native/5 install script', {'python': true}],
+    ['native/5 install script', {'python': true, 'skip_uninstall': true}],
     ['native/6 add language'],
     ['native/7 selfbuilt custom'],
     ['native/8 external program shebang parsing'],
