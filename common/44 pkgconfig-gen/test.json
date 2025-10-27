@@ -2,7 +2,7 @@
   "installed": [
     {"type": "file", "file": "usr/include/simple.h"},
     {"type": "file", "file": "usr/lib/libstat2.a"},
-    {"type": "file", "file": "usr/lib/pkgconfig/simple.pc"},
+    {"type": "file", "file": "usr/lib/pkgconfig/simple.pc", "platform": "!windows"},
     {"type": "file", "file": "usr/lib/pkgconfig/libanswer.pc"},
     {"type": "file", "file": "usr/lib/pkgconfig/libfoo.pc"},
     {"type": "file", "file": "usr/lib/pkgconfig/libhello.pc"},
