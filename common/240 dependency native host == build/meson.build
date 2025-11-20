@@ -15,7 +15,8 @@ dependency('zlib', native: false)
 meson.override_dependency('dingbat', declare_dependency())
 dependency('dingbat')
 # different than meson: native: true does make a difference when doing a native
-# build.
-dingbat_native = dependency('dingbat', native: true, required: false)
-assert(not dingbat_native.found())
+# build.  However in this case, since the dependency contains no
+# machine-specific information if will automatically be overriden for both
+# machines.
+dependency('dingbat', native: true)
 dependency('dingbat', native: false)
