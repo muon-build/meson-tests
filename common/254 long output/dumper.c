@@ -2,6 +2,10 @@
 
 int main(void)
 {
+#ifdef _WIN32
+	setvbuf(stderr, 0, _IOFBF, 2048);
+#endif
+
     for (int i = 0 ; i < 100000 ; i++)
         fprintf(stderr, "# Iteration %d to stderr\n", i + 1);
 
