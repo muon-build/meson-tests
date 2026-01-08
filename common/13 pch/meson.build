@@ -3,8 +3,8 @@ project('pch test', 'c', 'cpp', meson_version: '>= 0.46.0')
 cc = meson.get_compiler('c')
 cc_id = cc.get_id()
 
-if cc_id == 'msvc'
-    error('MESON_SKIP_TEST: TODO: muon does not support PCH with msvc yet')
+if cc_id == 'msvc' or cc_id == 'clang-cl'
+    error('MESON_SKIP_TEST: TODO: muon does not support PCH with msvc or clang-cl yet')
 endif
 
 if cc_id == 'pgi'
