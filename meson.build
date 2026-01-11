@@ -192,7 +192,7 @@ foreach t : [
     ['common/181 same target name flat layout'],
     ['common/182 find override', {'python': true}],
     ['common/183 partial dependency'],
-    ['common/184 openmp', {'failing': true}],
+    ['common/184 openmp'],
     ['common/185 same target name'],
     ['common/186 test depends', {'python': true}],
     ['common/187 args flattening'],
