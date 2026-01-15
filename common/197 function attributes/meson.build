@@ -26,7 +26,7 @@ if c.get_id() == 'pgi'
 endif
 
 expected = {}
-expected_default = not ['msvc', 'clang-cl', 'intel-cl'].contains(c.get_id())
+expected_default = not ['msvc', 'intel-cl'].contains(c.get_id())
 
 # Q: Why is ifunc not in this list or any of the below lists?
 # A: It's too damn hard to figure out if you actually support it, since it
