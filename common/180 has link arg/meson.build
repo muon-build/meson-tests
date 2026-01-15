@@ -80,7 +80,7 @@ assert(
 # These are Visual Studio only flags
 # Testing has_argument_syntax is incorrect as it skips Microsoft Clang
 if cc.get_define('_MSC_FULL_VER') != ''
-    if cc.get_linker_id() == 'link'
+    if cc.get_linker_id() == 'link' or cc.get_linker_id() == 'lld-link'
         is_only = '/OPT:REF'
         is_shared = '/GUARD:CF'
     else
