@@ -134,7 +134,7 @@ to_validate += 'simple5'
 # Test passing a linkable CustomTarget and CustomTargetIndex to generator.
 # Do this only with gcc/clang to not have to deal with other compiler command
 # line specificities.
-if cc.get_id() in ['gcc', 'clang']
+if cc.get_id() in ['gcc', 'clang', 'tcc']
     ct = custom_target(
         'ct',
         input: 'simple.c',
