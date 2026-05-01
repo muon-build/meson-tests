@@ -290,9 +290,9 @@ foreach t : [
     ['common/254 long output'],
     ['common/255 module warnings', {'skip': 'not relevant to muon'}],
     ['common/256 subproject extracted objects', {'cpp': true}],
-    ['common/257 generated header dep'],
+    ['common/257 generated header dep', {'python': true}],
     ['common/258 subsubproject inplace'],
-    ['common/259 preprocess'],
+    ['common/259 preprocess', {'python': true}],
     ['common/260 declare_dependency objects'],
     [
         'common/261 testcase clause',
@@ -327,9 +327,9 @@ foreach t : [
     ['common/274 customtarget exe for test', {'python': true}],
     ['common/275 environment', {'python': true}],
     ['common/276 required keyword in compiles functions'],
-    ['common/277 generator custom_tgt subdir'],
-    ['common/278 custom target private dir'],
-    ['common/279 pkgconfig override'],
+    ['common/277 generator custom_tgt subdir', {'python': true}],
+    ['common/278 custom target private dir', {'python': true}],
+    ['common/279 pkgconfig override', {'python': true}],
     ['common/280 pkgconfig-gen'],
 
     # python
