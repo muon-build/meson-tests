@@ -33,8 +33,10 @@ install_headers('simple.h')
 
 to_validate = []
 
-# generate for systems without a glib pc file
+# generate for systems without these pc files
 pkgg.generate(name: 'glib-2.0', dataonly: true)
+pkgg.generate(name: 'gio-2.0', dataonly: true)
+pkgg.generate(name: 'gobject-2.0', dataonly: true)
 
 if host_machine.system() != 'windows'
     # These libraries are not present in a windows default install.
