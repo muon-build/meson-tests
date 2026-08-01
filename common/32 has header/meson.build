@@ -12,17 +12,11 @@ configure_file(
     configuration: configuration_data(),
 )
 
-is_libcxx = cpp.has_header_symbol('ciso646', '_LIBCPP_VERSION')
-
-# Test that the fallback to __has_include also works on all compilers
-#
-# darwin: can't redefine builtin macros so the above doesn't work
-# libcxx: Undefining __has_include() breaks LLVM libcxx platform.h
-if host_system != 'darwin' and not is_libcxx
-    fallbacks = ['', '\n#undef __has_include']
-else
-    fallbacks = ['']
-endif
+# different than meson: muon never uses __has_include in the comp.has_header
+# check.  undefining it breaks some libc's e.g. llvm's libc++ uses it
+# unconditionally:
+# https://github.com/llvm/llvm-project/blob/1d5bd289062748c89bb9f3f88d0f804972185e93/libcxx/include/__configuration/platform.h#L48
+fallbacks = ['']
 
 foreach fallback : fallbacks
     foreach comp : [meson.get_compiler('c'), cpp]
