@@ -24,6 +24,7 @@ simple_res_exe = executable(
 )
 test('simple resource test', simple_res_exe)
 
+# Requires python `gi.repository import Gio`
 # gnome.compile_resources(
 #     'simple-resources',
 #     'simple.gresource.xml',

@@ -33,7 +33,6 @@
     {"type": "file", "file": "usr/share/gir-1.0/MesonDep2-1.0.gir"},
     {"type": "file", "file": "usr/share/gir-1.0/MesonDep3-1.0.gir"},
     {"type": "file", "file": "usr/share/glib-2.0/schemas/com.github.meson.gschema.xml"},
-    {"type": "file", "file": "usr/share/simple-resources.gresource"},
     {"type": "file", "file": "usr/include/enums6.h"},
     {"type": "file", "file": "usr/include/simple-resources.h"},
     {"type": "file", "file": "usr/include/generated-gdbus.h"}

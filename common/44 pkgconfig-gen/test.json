@@ -1,8 +1,6 @@
 {
   "installed": [
     {"type": "file", "file": "usr/include/simple.h"},
-    {"type": "file", "file": "usr/include/inc1.h"},
-    {"type": "file", "file": "usr/include/inc2.h"},
     {"type": "file", "file": "usr/lib/libstat2.a"},
     {"type": "file", "file": "usr/lib/pkgconfig/simple.pc"},
     {"type": "file", "file": "usr/lib/pkgconfig/libanswer.pc"},
