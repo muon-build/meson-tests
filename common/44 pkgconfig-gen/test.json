@@ -18,7 +18,8 @@
     {"type": "file", "file": "usr/lib/pkgconfig/ct.pc"},
     {"type": "file", "file": "usr/lib/pkgconfig/ct0.pc"},
     {"type": "file", "file": "usr/share/pkgconfig/libhello_nolib.pc"},
-    {"type": "file", "file": "usr/lib/pkgconfig/abssubdir.pc"}
+    {"type": "file", "file": "usr/lib/pkgconfig/abssubdir.pc"},
+    {"type": "file", "file": "usr/share/pkgconfig/glib-2.0.pc"}
   ],
   "stdout": [
     {
