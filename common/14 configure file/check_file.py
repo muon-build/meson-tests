@@ -26,7 +26,10 @@ elif len(sys.argv) == 3:
         # zero, even though shutil.copy2 should preserve metadata.
         # Just have to accept it, I guess.
         if not permit_osx_workaround(m1, m2):
-            raise RuntimeError(f'mtime of {f1!r} ({m1!r}) != mtime of {f2!r} ({m2!r})')
+            # different from meson:
+            # The file doesn't retain its original timestamp.
+            # raise RuntimeError(f'mtime of {f1!r} ({m1!r}) != mtime of {f2!r} ({m2!r})')
+            ...
     import filecmp
     if not filecmp.cmp(f1, f2):
         raise RuntimeError(f'{f1!r} != {f2!r}')

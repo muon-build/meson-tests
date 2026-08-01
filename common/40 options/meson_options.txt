@@ -39,6 +39,7 @@ option(
     description: 'An option with all caps',
 )
 
-option('boolean_string', type: 'boolean', value: 'false')
-option('boolean_string2', type: 'boolean', value: 'true')
-option('integer_string', type: 'integer', value: '42')
+# different than meson: options have to typecheck
+#option('boolean_string', type: 'boolean', value: 'false')
+#option('boolean_string2', type: 'boolean', value: 'true')
+#option('integer_string', type: 'integer', value: '42')

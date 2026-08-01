@@ -1,4 +1,4 @@
-project('sub_static')
+project('sub_static', default_options: ['default_library=shared'])
 
 assert(get_option('default_library') == 'static')
 assert(get_option('bar') == true)

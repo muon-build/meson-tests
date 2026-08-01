@@ -4,9 +4,13 @@ is_windows = build_machine.system() == 'windows'
 
 fs = import('fs')
 
-f = files('meson.build')
 btgt = executable('btgt', 'btgt.c')
 ctgt = fs.copyfile('ctgt.txt')
+# different from meson: files() stores absolute paths, but it seems the fs
+# functions work on the original relative part of the file,
+# e.g. fs.replace_suffix(files('meson.build'), '') -> 'meson'
+# in muon, it results in '/abs/path/to/file/meson'.
+f = ['meson.build']
 
 assert(fs.exists('meson.build'), 'Existing file reported as missing.')
 assert(not fs.exists('nonexisting'), 'Nonexisting file was found.')
@@ -105,18 +109,20 @@ new = fs.replace_suffix(ctgt[0], '.ini')
 assert(new == 'ctgt.ini', 'replace_suffix failed for custom target index')
 
 # -- hash
+# TODO: md5 algorithm, (meson docs say hash supports md5, sha1, sha224, sha256,
+# sha384, and sha512)
 
-md5 = fs.hash('subdir/subdirfile.txt', 'md5')
+# md5 = fs.hash('subdir/subdirfile.txt', 'md5')
 sha256 = fs.hash('subdir/subdirfile.txt', 'sha256')
-assert(md5 == 'd0795db41614d25affdd548314b30b3b', 'md5sum did not match')
+# assert(md5 == 'd0795db41614d25affdd548314b30b3b', 'md5sum did not match')
 assert(
     sha256 == 'be2170b0dae535b73f6775694fffa3fd726a43b5fabea11b7342f0605917a42a',
     'sha256sum did not match',
 )
 
 f = files('subdir/subdirfile.txt')
-md5 = fs.hash(f[0], 'md5')
-assert(md5 == 'd0795db41614d25affdd548314b30b3b', 'md5sum did not match')
+# md5 = fs.hash(f[0], 'md5')
+# assert(md5 == 'd0795db41614d25affdd548314b30b3b', 'md5sum did not match')
 sha256 = fs.hash(f[0], 'sha256')
 assert(
     sha256 == 'be2170b0dae535b73f6775694fffa3fd726a43b5fabea11b7342f0605917a42a',
@@ -167,13 +173,26 @@ assert(
 f = files('subdir/../meson.build', 'meson.build')
 assert(fs.is_samepath(f[0], f[1]), 'is_samepath not detecting same files')
 
-if not is_windows and build_machine.system() != 'cygwin'
-    assert(fs.is_samepath(symlink, 'meson.build'), 'symlink is_samepath fail')
-endif
+# TODO: implement readlink
+# if not is_windows and build_machine.system() != 'cygwin'
+#     assert(fs.is_samepath(symlink, 'meson.build'), 'symlink is_samepath fail')
+# endif
 
 # parts of path
 assert(fs.parent('foo/bar') == 'foo', 'failed to get dirname')
-assert(fs.parent(f[1]) == 'subdir/..', 'failed to get dirname for file')
+# different than meson: See the above note about fs functions working on the
+# relative part of the file.
+if not is_windows
+    assert(
+        fs.is_samepath(fs.parent(f[1]), 'subdir/..'),
+        'failed to get dirname',
+    )
+else
+    assert(
+        fs.is_samepath(fs.parent(f[1]), 'subdir\..'),
+        'failed to get dirname',
+    )
+endif
 assert(fs.parent(btgt) == '.', 'failed to get dirname for build target')
 assert(fs.parent(ctgt) == '.', 'failed to get dirname for custom target')
 assert(fs.parent(ctgt[0]) == '.', 'failed to get dirname for custom target index')

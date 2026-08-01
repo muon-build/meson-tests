@@ -1,27 +1,40 @@
-;  hello.asm  a first program for nasm for Linux, Intel, gcc
-;
-; assemble:    nasm -f elf -l hello.lst  hello.asm
-; link:        gcc -o hello  hello.o
-; run:            hello
-; output is:    Hello World
+; hello_64.asm    print a string using printf
+; Assemble:	  nasm -f elf64 -l hello_64.lst  hello_64.asm
+; Link:		  gcc -m64 -o hello_64  hello_64.o
+; Run:		  ./hello_64 > hello_64.out
+; Output:	  cat hello_64.out
+
+; Equivalent C code
+; // hello.c
+; #include <stdio.h>
+; int main()
+; {
+;   char msg[] = "Hello world\n";
+;   printf("%s\n",msg);
+;   return 0;
+; }
 
 %include "config.asm"
 
-    SECTION .data        ; data section
-msg:    db "Hello World",10    ; the string to print, 10=cr
-len:    equ $-msg        ; "$" means "here"
-                ; len is a value, not an address
+; Declare needed C  functions
+        extern	printf		; the C function, to be called
 
-    SECTION .text        ; code section
-        global main        ; make label available to linker
-main:                ; standard  gcc  entry point
+        section .data		; Data section, initialized variables
+msg:	db "Hello world", 0	; C string needs 0
+fmt:    db "%s", 10, 0          ; The printf format, "\n",'0'
 
-    mov    edx,len        ; arg3, length of string to print
-    mov    ecx,msg        ; arg2, pointer to string
-    mov    ebx,1        ; arg1, where to write, screen
-    mov    eax,4        ; write sysout command to int 80 hex
-    int    0x80        ; interrupt 80 hex, call kernel
+        section .text           ; Code section.
 
-    mov    ebx,HELLO    ; exit code, 0=normal
-    mov    eax,1        ; exit command to kernel
-    int    0x80        ; interrupt 80 hex, call kernel
+        global main		; the standard gcc entry point
+main:				; the program label for the entry point
+        push    rbp		; set up stack frame, must be alligned
+
+	mov	rdi,fmt
+	mov	rsi,msg
+	mov	rax,0		; or can be  xor  rax,rax
+        call    printf		; Call C function
+
+	pop	rbp		; restore stack
+
+	mov	rax,HELLO	; normal, no error, return value
+	ret			; return

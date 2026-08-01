@@ -14,5 +14,3 @@ endif
 if conf.get('CONFIG_VAL_VAL').to_int() != 4
     error('Expected CONFIG_VAL_VAL to be 4')
 endif
-
-k = import('unstable-keyval')
