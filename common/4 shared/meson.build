@@ -21,4 +21,5 @@ build_target(
     target_type: 'shared_library',
     c_shared_args: ['-DWORK'],
     c_static_args: ['-DBREAK'],
+    link_args: '',
 )

@@ -18,6 +18,7 @@ p = mod.add_project(
         '--libext=' + libext,
     ],
     depends: somelib,
+    verbose: true,
 )
 
 libfoo_dep = declare_dependency(link_with: somelib, dependencies: p.dependency('foo'))

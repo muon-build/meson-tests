@@ -20,4 +20,10 @@ if get_option('default_library') == 'static'
         c_shared_args: ['-DBREAK'],
     )
 endif
-build_target('lib4', 'lib3.c', c_static_args: ['-DWORK'], target_type: 'static_library')
+build_target(
+    'lib4',
+    'lib3.c',
+    c_static_args: ['-DWORK'],
+    target_type: 'static_library',
+    link_args: '',
+)

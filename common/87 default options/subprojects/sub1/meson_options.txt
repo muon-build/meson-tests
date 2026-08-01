@@ -4,3 +4,9 @@ option(
     value: true,
     description: 'Test option. Superproject overrides default to "false"',
 )
+option(
+    'func_test_option',
+    type: 'boolean',
+    value: false,
+    description: 'Test option. Superproject overrides default to "true"',
+)
