@@ -23,7 +23,9 @@ tools/update_tests.sh -cf path/to/meson path/to/meson-tests
    contains formatting changes only.
 5. Switch back to `master` in the meson-tests repo.
 6. Rebase: `git rebase -i upstream`.  Resolve conflicts
-7. Update muon/tests/project/meson.build with the sha1 of the new HEAD.
-8. Force push meson-tests and push muon
+7. Run `tools/find_missing_tests.sh` and add new tests to meson.build, as well
+   as fix test renames.
+8. Update muon/tests/project/meson.build with the sha1 of the new HEAD.
+9. Force push meson-tests and push muon
 
 [meson/test cases]: https://github.com/mesonbuild/meson/tree/master/test%20cases
