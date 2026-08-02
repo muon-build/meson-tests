@@ -3,8 +3,8 @@
 set -eu
 
 muon setup -Dprint-tests=true build \
-	| grep 'message:' \
-	| sed 's/message: //g' \
+	| grep '^note ' \
+	| sed 's/^note //g' \
 	| sort > build/defined_in_meson.build.txt
 
 find . -type f -maxdepth 3 -mindepth 3 -name 'meson.build' \
