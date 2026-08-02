@@ -1,4 +1,4 @@
-project('pkgconfig-get', 'c', meson_version: '>=1.9.0')
+project('pkgconfig-get', 'c')
 
 pkgg = import('pkgconfig')
 
@@ -15,5 +15,4 @@ pkgg.generate(
     filebase: 'simple',
     description: 'A simple demo library.',
     libraries: [lib_dep],
-    license: 'Apache-2.0',
 )

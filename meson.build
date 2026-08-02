@@ -329,8 +329,22 @@ foreach t : [
     ['common/276 required keyword in compiles functions'],
     ['common/277 generator custom_tgt subdir', {'python': true}],
     ['common/278 custom target private dir', {'python': true}],
-    ['common/279 pkgconfig override', {'python': true}],
-    ['common/280 pkgconfig-gen'],
+    ['common/279 expected exitcode'],
+    ['common/280 pkgconfig override', {'python': true}],
+    ['common/281 pkgconfig-gen'],
+    ['common/282 -D_FORTIFY_SOURCE=2 and -O0'],
+    ['common/283 subproj options'],
+    ['common/284 test args and depends in path'],
+    ['common/285 wrap override'],
+    ['common/286 pkgconfig subproject'],
+    ['common/287 atomic'],
+    ['common/288 importstd'],
+    ['common/289 invalid dependency arguments'],
+    ['common/290 multiple provides'],
+    ['common/291 subproject with foreign lang'],
+    ['common/292 link early args'],
+    ['common/293 systemd regression'],
+    ['common/294 source set if_false deps'],
 
     # python
     ['python/1 basic', {'python': true}],
@@ -352,6 +366,7 @@ foreach t : [
         'python/10 extmodule limited api disabled',
         {'python': true, 'failing': true},
     ],
+    ['python/11 script path', {'python': true}],
 
     # native
     ['native/1 trivial'],
