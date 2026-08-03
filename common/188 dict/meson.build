@@ -14,10 +14,12 @@ endforeach
 assert(i == 3, 'There should be three elements in that dictionary')
 
 # Test keys() works as expected (note that it sorts the keys)
-assert(dict.keys() == ['baz', 'foo', 'foo bar'], 'Keys returned unexpected list')
+# different than meson: muon does not sort keys
+assert(dict.keys() == ['foo', 'baz', 'foo bar'], 'Keys returned unexpected list')
 
 # Test values() works as expected (note that it sorts first, to match keys())
-assert(dict.values() == ['foo', 'bar', 'baz'])
+# different than meson: muon does not sort values
+assert(dict.values() == ['bar', 'foo', 'baz'])
 
 empty_dict = {}
 
