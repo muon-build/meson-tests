@@ -52,7 +52,11 @@ assert(prog.found(), 'Program should be found')
 prog = find_program('print-version.py')
 if build_machine.system() != 'cygwin'
     assert(prog.cmd_array() != [prog.full_path()])
-    assert(prog.cmd_array().length() == 2)
+    # different than meson: it seems meson resolves python3 to its absoulte path, e.g.:
+    # meson: ['/path/to/python3', '/path/to/print-version.py']
+    # muon respects the /usr/bin/env (on non-windows):
+    # muon: ['/usr/bin/env', 'python3', '/path/to/print-version.py']
+    assert(prog.cmd_array().length() > 1)
 endif
 
 ret = run_command(prog.cmd_array(), '--version', check: true)
