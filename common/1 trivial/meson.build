@@ -17,7 +17,9 @@ elif cc.get_id() == 'intel-cl'
     add_project_arguments('/Qdiag-error:10159', language: 'c')
 endif
 
-exe = executable('trivialprog', sources: sources, link_args: '', dependencies: '')
+# different from meson: '' is not accepted to mean []
+# exe = executable('trivialprog', sources: sources, link_args: '', dependencies: '')
+exe = executable('trivialprog', sources: sources, link_args: [], dependencies: [])
 assert(exe.name() == 'trivialprog')
 test('runtest', exe) # This is a comment
 
