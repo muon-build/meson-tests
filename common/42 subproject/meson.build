@@ -4,7 +4,10 @@ project(
     version: '2.3.4',
     license: 'mylicense',
     # also grab the meson license to test monorepo support
-    license_files: ['mylicense.txt', '../../../COPYING'],
+    license_files: ['mylicense.txt'], #, '../../../COPYING'],
+    default_options: {
+        'subunsed:foo': 1,
+    },
 )
 
 assert(meson.project_name() == 'subproj user', 'Incorrect project name')
