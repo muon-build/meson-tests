@@ -4,8 +4,6 @@ is_windows = build_machine.system() == 'windows'
 
 fs = import('fs')
 
-btgt = executable('btgt', 'btgt.c')
-ctgt = fs.copyfile('ctgt.txt')
 # different from meson: files() stores absolute paths, but it seems the fs
 # functions work on the original relative part of the file,
 # e.g. fs.replace_suffix(files('meson.build'), '') -> 'meson'
