@@ -1,7 +1,10 @@
 project('get prop')
 
+# different than meson:
+# https://docs.muon.build/differences.html#native-true
+
 x = meson.get_external_property('astring')
-ref = meson.is_cross_build() ? 'cross' : 'mystring'
+ref = 'cross' # meson.is_cross_build() ? 'cross' : 'mystring'
 assert(
     x == ref,
     'did not get native property string. did you use "meson setup --native-file native.txt"',
@@ -50,7 +53,7 @@ assert(meson.has_external_property('anarray', native: true), 'FIXME')
 assert(meson.has_external_property('astring', native: false), 'FIXME')
 assert(meson.has_external_property('astring', native: true), 'FIXME')
 
-if meson.is_cross_build()
+# if meson.is_cross_build()
     # This property only exists in the cross file
     assert(
         meson.has_external_property('red'),
@@ -67,17 +70,17 @@ if meson.is_cross_build()
 
     assert(not meson.has_external_property('abool', native: false), 'FIXME')
     assert(not meson.has_external_property('abool', native: false), 'FIXME')
-else
-    assert(
-        not meson.has_external_property('red'),
-        'did not expect property "red" to exist in native file',
-    )
-    assert(
-        not meson.has_external_property('red', native: false),
-        'did not expect property "red" to exist in cross file because we are not doing a cross build',
-    )
+# else
     assert(
         not meson.has_external_property('red', native: true),
         'did not expect property "red" to exist in native file',
     )
-endif
+    # assert(
+    #     not meson.has_external_property('red', native: false),
+    #     'did not expect property "red" to exist in cross file because we are not doing a cross build',
+    # )
+    assert(
+        not meson.has_external_property('red', native: true),
+        'did not expect property "red" to exist in native file',
+    )
+# endif

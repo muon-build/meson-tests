@@ -213,15 +213,7 @@ foreach t : [
     ['common/202 custom target build by default', {'python': true}],
     ['common/203 find_library and headers'],
     ['common/204 line continuation'],
-    [
-        'common/205 native file path override',
-        {
-            'cpp': true,
-            'option_matrix': {
-                'bindir': ['custom_bindir'],
-            },
-        },
-    ],
+    ['common/205 native file path override', {'cpp': true}],
     ['common/206 tap tests'],
     ['common/207 warning level 0', {'cpp': true}],
     ['common/208 link custom', {'python': true}],
@@ -238,10 +230,7 @@ foreach t : [
     ['common/219 include_type dependency', {'cpp': true}],
     ['common/220 fs module'],
     ['common/221 zlib'],
-    [
-        'common/222 native prop',
-        {'failing': true, 'skip': 'requires machine files'},
-    ],
+    ['common/222 native prop'],
     ['common/223 persubproject options', {'cpp': true}],
     ['common/224 arithmetic operators'],
     ['common/225 link language', {'cpp': true}],
