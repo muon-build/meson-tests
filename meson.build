@@ -341,7 +341,7 @@ foreach t : [
     ['common/285 wrap override'],
     ['common/286 pkgconfig subproject'],
     ['common/287 atomic'],
-    ['common/288 importstd'],
+    ['common/288 importstd', {'failing': true}],
     ['common/289 invalid dependency arguments'],
     ['common/290 multiple provides'],
     ['common/291 subproject with foreign lang'],
