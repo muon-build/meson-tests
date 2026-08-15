@@ -336,7 +336,7 @@ foreach t : [
     ['common/280 pkgconfig override', {'python': true}],
     ['common/281 pkgconfig-gen'],
     ['common/282 -D_FORTIFY_SOURCE=2 and -O0'],
-    ['common/283 subproj options'],
+    ['common/283 subproj options', {'options': {'b_lto': 'true'}}],
     ['common/284 test args and depends in path'],
     ['common/285 wrap override'],
     ['common/286 pkgconfig subproject'],
