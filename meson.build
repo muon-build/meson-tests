@@ -261,7 +261,21 @@ foreach t : [
     ['common/244 variable scope'],
     ['common/245 custom target index source', {'python': true}],
     ['common/246 dependency fallbacks'],
-    ['common/247 deprecated option', {'python': true}],
+    [
+        'common/247 deprecated option',
+        {
+            'python': true,
+            'options': {
+                'c1': 'false',
+                'c2': 'a,b',
+                'c3': 'a,b',
+                'c4': 'true',
+                'c5': 'auto',
+                'c6': 'false',
+                'c8': '/foo',
+            },
+        },
+    ],
     ['common/248 install_emptydir'],
     ['common/249 install_symlink'],
     ['common/250 system include dir', {'cpp': true}],

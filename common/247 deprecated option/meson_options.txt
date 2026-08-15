@@ -65,6 +65,3 @@ option(
 option('o8', type: 'string', value: '', deprecated: 'python.platlibdir')
 option('p8', type: 'string', value: '', deprecated: 'python.platlibdir')
 option('c8', type: 'string', value: '', deprecated: 'python.platlibdir')
-
-# different than meson: python.platlibdir is not an option
-option('python_platlibdir', type: 'string')
