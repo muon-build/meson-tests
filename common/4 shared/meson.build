@@ -21,5 +21,8 @@ build_target(
     target_type: 'shared_library',
     c_shared_args: ['-DWORK'],
     c_static_args: ['-DBREAK'],
-    link_args: '',
+    # different than meson:
+    # This is equivalent to a literal [''], in meson it gets converted
+    # to [] (see 91a54fe33c)
+    # link_args: '',
 )
