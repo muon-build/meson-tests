@@ -1,5 +1,7 @@
 # regression test - meson puts the directories in the reversed order for
 # "is_system: true", which is bad but happens for historical reasons.
+# different than meson:
+# muon puts directories in the correct order so this test is kind of pointless
 
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
@@ -17,8 +19,8 @@ userspace = declare_dependency(compile_args: ['-include', 'config.h'])
 
 system_includes = [
     include_directories(
-        'uapi',
         'override',
+        'uapi',
         is_system: true,
     ),
 ]
@@ -36,8 +38,8 @@ static_library(
 # second testcase, with separate include_directories
 
 system_includes = [
-    include_directories('uapi', is_system: true),
     include_directories('override', is_system: true),
+    include_directories('uapi', is_system: true),
 ]
 
 static_library(
