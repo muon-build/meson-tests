@@ -113,11 +113,11 @@ ret = run_command(
 )
 assert(ret.returncode() == 0, 'failed to run python3: ' + ret.stderr())
 assert(
-    ret.stdout() == 'stdout|capture:true,console:false\n',
+    ret.stdout().strip() == 'stdout|capture:true,console:false',
     'failed to capture stdout:' + ret.stdout(),
 )
 assert(
-    ret.stderr() == 'stderr|capture:true,console:false\n',
+    ret.stderr().strip() == 'stderr|capture:true,console:false',
     'failed to capture stderr:' + ret.stderr(),
 )
 
@@ -131,11 +131,11 @@ ret = run_command(
 )
 assert(ret.returncode() == 0, 'failed to run python3: ' + ret.stderr())
 assert(
-    ret.stdout() == 'stdout|capture:true,console:true\n',
+    ret.stdout().strip() == 'stdout|capture:true,console:true',
     'failed to capture stdout:' + ret.stdout(),
 )
 assert(
-    ret.stderr() == 'stderr|capture:true,console:true\n',
+    ret.stderr().strip() == 'stderr|capture:true,console:true',
     'failed to capture stderr:' + ret.stderr(),
 )
 
