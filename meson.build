@@ -344,7 +344,7 @@ foreach t : [
     ['common/288 importstd', {'failing': true}],
     ['common/289 invalid dependency arguments'],
     ['common/290 multiple provides'],
-    ['common/291 subproject with foreign lang'],
+    ['common/291 subproject with foreign lang', {'cpp': true}],
     ['common/292 link early args'],
     ['common/293 systemd regression'],
     ['common/294 source set if_false deps'],
