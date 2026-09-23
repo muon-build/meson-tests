@@ -22,6 +22,11 @@ py3 = python3.find_installation()
 
 cc = meson.get_compiler('c')
 
+if cc.get_id() == 'tcc'
+    # Have tcc pretend to be gcc to get glib and gio defines working.
+    add_global_arguments('-D__GNUC__=4', language: 'c')
+endif
+
 add_global_arguments('-DMESON_TEST_1', language: 'c')
 if cc.get_id() == 'intel'
     # Ignore invalid GCC pragma warnings from glib
@@ -43,7 +48,11 @@ endif
 
 gnome = import('gnome')
 gio = dependency('gio-2.0')
-giounix = dependency('gio-unix-2.0')
+if host_machine.system() == 'windows'
+    giounix = dependency('gio-windows-2.0')
+else
+    giounix = dependency('gio-unix-2.0')
+endif
 glib = dependency('glib-2.0')
 gobj = dependency('gobject-2.0')
 # gir = dependency('gobject-introspection-1.0')

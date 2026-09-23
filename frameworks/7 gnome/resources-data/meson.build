@@ -3,6 +3,7 @@ subdir('subdir')
 fake_generator_script = '''
 import os, sys
 assert os.path.exists(sys.argv[1]), "File %s not found" % sys.argv[1]
+sys.stdout.reconfigure(newline='\n') # avoid \r\n on windows
 print("This is a generated resource.")
 '''
 
