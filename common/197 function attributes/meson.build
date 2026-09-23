@@ -64,8 +64,8 @@ attributes = [
 ]
 
 expected += {
-    'dllexport': ['windows', 'cygwin'].contains(host_machine.system()),
-    'dllimport': ['windows', 'cygwin'].contains(host_machine.system()),
+    'dllexport': ['windows', 'cygwin', 'haiku'].contains(host_machine.system()),
+    'dllimport': ['windows', 'cygwin', 'haiku'].contains(host_machine.system()),
 }
 
 # These attributes exist on msys2 gcc 15.1.0 on system 'windows'.
