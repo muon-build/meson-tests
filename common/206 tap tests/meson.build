@@ -27,11 +27,13 @@ test(
     args: ['ok # Skipped: with a comment'],
     protocol: 'tap',
 )
+# https://testanything.org/tap-version-14-specification.html
+# "Harnesses must not treat failing SKIP test points as a test failure."
 test(
     'skip failure',
     tester,
     args: ['not ok # skip'],
-    should_fail: true,
+    # muon difference - meson has: should_fail: true
     protocol: 'tap',
 )
 test('no tests', tester, args: ['1..0 # skip'], protocol: 'tap')
