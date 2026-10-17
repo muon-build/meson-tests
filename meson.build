@@ -249,7 +249,7 @@ foreach t : [
     ['common/235 invalid standard overridden to valid'],
     [
         'common/236 proper args splitting',
-        {'kwargs': {'env': {'CFLAGS': '-DFOO -DBAR'}}},
+        {'test_kwargs': {'env': {'CFLAGS': '-DFOO -DBAR'}}},
     ],
     ['common/237 fstrings'],
     ['common/238 dependency include_type inconsistency'],
